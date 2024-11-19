@@ -1,0 +1,25 @@
+name: Trigger Replit Backend
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  trigger-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Trigger Start Command
+      run: |
+        curl -X POST https://1dabcc12-5917-4d78-b35b-92d7c82c0e09-00-17zgbyqawi8jr.pike.replit.dev/start-rat \
+          -H "Authorization: Bearer ${{ secrets.REPLIT_SECRET }}"
+
+    - name: Trigger Stop Command
+      run: |
+        curl -X POST https://1dabcc12-5917-4d78-b35b-92d7c82c0e09-00-17zgbyqawi8jr.pike.replit.dev/stop-rat \
+          -H "Authorization: Bearer ${{ secrets.REPLIT_SECRET }}"
